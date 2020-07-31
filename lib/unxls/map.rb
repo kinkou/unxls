@@ -47,7 +47,7 @@ end
 require_relative 'version' unless defined?(Unxls::VERSION)
 require_relative 'log'
 require_relative 'bit_ops'
-require_relative '../../ext/bit_ops.so'
+# require_relative '../../ext/bit_ops.so'
 require_relative 'biff8/constants'
 require_relative 'biff8/workbook_stream'
 require_relative 'biff8/record'

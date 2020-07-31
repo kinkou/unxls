@@ -333,7 +333,7 @@ RSpec.describe Unxls do
           expect(eh[:AlgID]).to eq 0x6801
           expect(eh[:AlgID_d]).to eq :RC4
           expect(eh[:KeySize]).to eq params[:KeySize]
-          expect(eh[:ProviderType]).to be_an_instance_of Integer
+          expect(eh[:ProviderType]).to be_an_kind_of Integer
           expect(eh[:CSPName]).to eq params[:CSPName]
 
           ev = fp[:EncryptionVerifier]
@@ -504,7 +504,7 @@ RSpec.describe Unxls do
       # Record id
       it 'Decodes ifmt field' do
         1.upto(5).each do |row|
-          expect(@browser.get_format(1, row, 0)[:ifmt]).to be_an_instance_of Integer
+          expect(@browser.get_format(1, row, 0)[:ifmt]).to be_an_kind_of Integer
         end
       end
 
@@ -1126,7 +1126,7 @@ RSpec.describe Unxls do
             else
               expect(element[:size]).to be_between(1, 9)
             end
-            expect(element[:index]).to be_an_instance_of Integer
+            expect(element[:index]).to be_an_kind_of Integer
           end
         end
 
@@ -1497,7 +1497,7 @@ RSpec.describe Unxls do
       end
 
       it 'Decodes ixfe field' do
-        expect(@browser.get_xfext(1, 3, 0)[:ixfe]).to be_an_instance_of Integer
+        expect(@browser.get_xfext(1, 3, 0)[:ixfe]).to be_an_kind_of Integer
         expect(@browser.get_xf(1, 3, 0)[:fHasXFExt]).to eq true
       end
 
@@ -1899,7 +1899,7 @@ RSpec.describe Unxls do
         record = @browser.get_cell(1, 4, 0)
         expect(record[:rw]).to eq 4
         expect(record[:col]).to eq 0
-        expect(record[:ixfe]).to be_an_instance_of(Integer)
+        expect(record[:ixfe]).to be_an_kind_of Integer
         expect(@browser.globals[:XF][record[:ixfe]][:fls_d]).to eq :FLSGRAY125
       end
 
@@ -1909,7 +1909,7 @@ RSpec.describe Unxls do
 
           expect(record[:rw]).to eq 25
           expect(record[:col]).to eq 0
-          expect(record[:ixfe]).to be_an_instance_of(Integer)
+          expect(record[:ixfe]).to be_an_kind_of Integer
         end
 
         [
@@ -1940,7 +1940,7 @@ RSpec.describe Unxls do
 
           expect(record[:rw]).to eq 33
           expect(record[:col]).to eq 0
-          expect(record[:ixfe]).to be_an_instance_of(Integer)
+          expect(record[:ixfe]).to be_an_kind_of Integer
           expect(record[:fAlwaysCalc]).to eq false
           expect(record[:fFill]).to eq false
           expect(record[:fShrFmla]).to eq false
@@ -1994,9 +1994,9 @@ RSpec.describe Unxls do
           record = @browser.get_cell(1, 21, column)
           expect(record[:rw]).to eq 21
           expect(record[:col]).to eq column
-          expect(record[:ixfe]).to be_an_instance_of(Integer)
+          expect(record[:ixfe]).to be_an_kind_of Integer
 
-          expect(record[:isst]).to be_an_instance_of(Integer)
+          expect(record[:isst]).to be_an_kind_of Integer
           sst = @browser.globals[:SST][:rgb][record[:isst]]
           expect(sst[:rgb]).to eq text
         end
@@ -2091,7 +2091,7 @@ RSpec.describe Unxls do
           expect(colinfo[:colLast]).to eq 2
           expect(colinfo[:coldx]).to eq default_width
   
-          expect(colinfo[:ixfe]).to be_an_instance_of(Integer) # custom XF
+          expect(colinfo[:ixfe]).to be_an_kind_of Integer # custom XF
           xfext = @browser.globals[:XFExt].find { |r| r[:ixfe] == colinfo[:ixfe] }
           extprop = xfext[:rgExt].find { |x| x[:_property] == :'cell interior foreground color' }
           expect(extprop[:extPropData][:xclrValue]).to eq :'2A8EF2FF'
@@ -2239,7 +2239,7 @@ RSpec.describe Unxls do
         it 'Decodes fGhostDirty and ixfe fields' do
           row = @browser.get_row(sheet_index, 17)
           expect(row[:fGhostDirty]).to eq true
-          expect(row[:ixfe]).to be_an_instance_of Integer
+          expect(row[:ixfe]).to be_an_kind_of Integer
           
           row_xfext = @browser.mapif(:XFExt, first: true) { |r| r if r[:ixfe] == row[:ixfe] }
           color_ext = row_xfext[:rgExt].find { |p| p[:_property] == :'cell interior foreground color' }
@@ -2327,7 +2327,7 @@ RSpec.describe Unxls do
           expect(record[:fShow]).to eq false
           expect(record[:fRwHidden]).to eq false
           expect(record[:fColHidden]).to eq false
-          expect(record[:idObj]).to be_an_instance_of Integer
+          expect(record[:idObj]).to be_an_kind_of Integer
           expect(record[:stAuthor]).to eq 'Microsoft Office User'
         end
 
@@ -2338,7 +2338,7 @@ RSpec.describe Unxls do
           expect(record[:fShow]).to eq true
           expect(record[:fRwHidden]).to eq false
           expect(record[:fColHidden]).to eq false
-          expect(record[:idObj]).to be_an_instance_of Integer
+          expect(record[:idObj]).to be_an_kind_of Integer
           expect(record[:stAuthor]).to eq 'Microsoft Office User'
         end
 
@@ -2349,7 +2349,7 @@ RSpec.describe Unxls do
           expect(record[:fShow]).to eq false
           expect(record[:fRwHidden]).to eq true
           expect(record[:fColHidden]).to eq false
-          expect(record[:idObj]).to be_an_instance_of Integer
+          expect(record[:idObj]).to be_an_kind_of Integer
           expect(record[:stAuthor]).to eq 'Microsoft Office User'
         end
 
@@ -2360,7 +2360,7 @@ RSpec.describe Unxls do
           expect(record[:fShow]).to eq false
           expect(record[:fRwHidden]).to eq false
           expect(record[:fColHidden]).to eq true
-          expect(record[:idObj]).to be_an_instance_of Integer
+          expect(record[:idObj]).to be_an_kind_of Integer
           expect(record[:stAuthor]).to eq 'Microsoft Office User'
         end
       end
@@ -2416,8 +2416,8 @@ RSpec.describe Unxls do
           expect(record[:text_string]).to eq 'default style, halign left, valign top, rot none'
           expect(record[:text_string].size).to eq record[:cchText]
           expect(record[:formatting_runs].size).to eq 1
-          expect(record[:formatting_runs].first[:ich]).to be_an_instance_of Integer
-          expect(record[:formatting_runs].first[:ifnt]).to be_an_instance_of Integer
+          expect(record[:formatting_runs].first[:ich]).to be_an_kind_of Integer
+          expect(record[:formatting_runs].first[:ifnt]).to be_an_kind_of Integer
         end
 
         specify 'For note with center-middle aligned, unlocked text' do

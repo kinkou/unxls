@@ -16,7 +16,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ['lib']
   gem.version       = Unxls::VERSION
 
-  gem.required_ruby_version = '~> 2.0'
+  gem.required_ruby_version = '~> 2.1'
 
   gem.add_runtime_dependency 'ruby-ole'
   gem.add_runtime_dependency 'rubyzip'

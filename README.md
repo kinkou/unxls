@@ -1,6 +1,7 @@
 # Unxls
 
 [![Gem Version](https://badge.fury.io/rb/unxls.svg)](https://badge.fury.io/rb/unxls)
+[![Build Status](https://travis-ci.com/kinkou/unxls.svg?branch=master)](https://travis-ci.com/kinkou/unxls)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e6cba5968592fa84807d/maintainability)](https://codeclimate.com/github/kinkou/unxls/maintainability)
 
 Unxls is a parser for Microsoft Excel XLS binary file formats with the ultimate goal to cover the entire format specification and all BIFF versions. It is written with these ideas in mind:
@@ -144,3 +145,6 @@ These utils in the ```bin``` folder are included to make testing and debugging e
 - ```unxls [options] [file]``` parses a file or a directory of files. The former is useful for quickly displaying the contents of a file, and the latter for mass smoke tests of existing or new record/structure parsing methods. To learn more, see ```unxls -h```.
 - ```console``` starts a Pry session, with Unxls ```require```d.
 - ```records8 [file]``` (for BIFF8 files), ```records5 [file]``` (for BIFF5 files), ```records2``` (for BIFF2 files) simply display, in succession, what records the parsed substreams contain.
+
+## Requirements
+Ruby >= 2.1. Enjoy!

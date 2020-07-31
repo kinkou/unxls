@@ -157,7 +157,7 @@ class Unxls::Biff8::WorkbookStream
     end
 
     password = @parser.settings[:password] || Unxls::Offcrypto::DEFAULT_PASSWORD
-    decrypted_stream = Tempfile.new.tap(&:binmode) # remember to unlink the tempfile!
+    decrypted_stream = Tempfile.new('unxls-stream-decrypt').tap(&:binmode) # remember to unlink the tempfile!
     filepass_data = record.process
 
     case (decryption_type = filepass_data[:_type])
