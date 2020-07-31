@@ -1,0 +1,10 @@
+.DS_Store
+.vscode
+bundle
+doc
+docker-compose.yml
+lib/formulas
+pkg
+spec/files/other
+spec/files/temp
+up

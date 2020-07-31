@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/unxls'
+require 'pry'
+
+file = Pathname.new(ARGV[0])
+ole = Ole::Storage.open(file.to_s)
+stream = ole.file.open('Book')
+until stream.eof?
+  id, size = stream.read(4).unpack('vv')
+  puts Unxls::Biff8::Record.name_by_id(id) || Unxls::Log.h2b(id)
+  record = stream.read(size)
+  # binding.pry
+end

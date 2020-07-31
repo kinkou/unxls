@@ -1,0 +1,78 @@
+#!/usr/bin/env ruby
+
+require 'pathname'
+require 'optparse'
+require_relative '../lib/unxls'
+require 'awesome_print'
+
+util_params, parser_params = {}, {}
+
+opts_parser = OptionParser.new do |op|
+  op.banner = "Parses XLS files. To display the contents, start Ruby in debug mode.\nUsage: [ruby -d] unxls [options] file or directory"
+
+  op.on('-p', '--password PASSWORD', 'Password to use on encrypted files') do |x|
+    parser_params[:password] = x
+  end
+
+  op.on('-m', '--move', "Move processed files to 'checked' subfolder") do |x|
+    util_params[:move] = x
+  end
+
+  op.on('-s', '--suppress', "Suppress error messages") do |x|
+    util_params[:suppress_error_messages] = x
+  end
+
+  op.on('-r', '--recursive', 'Process files in subfolders') do |x|
+    util_params[:recursive] = x
+  end
+
+  op.on('-v', '--verbose', 'Be verbose') do |x|
+    util_params[:verbose] = x
+  end
+
+  op.on('-h', '--help', 'Prints this help') do
+    puts(op)
+    exit
+  end
+end
+
+opts_parser.parse!(%w[-h]) if ARGV.empty?
+
+argv = opts_parser.parse!
+path = Pathname.new(argv[0])
+path = Pathname.pwd.join(path) if path.relative?
+path = path.expand_path
+
+paths = if path.directory?
+  if util_params[:move]
+    util_params[:move] = path.join('checked')
+    FileUtils.mkdir(util_params[:move]) unless util_params[:move].exist?
+  end
+  path.glob(util_params[:recursive] ? '**/*.xls' : '*.xls')
+elsif path.extname == '.xls'
+  Set[path]
+else
+  opts_parser.parse!(%w(--help))
+  exit
+end
+
+paths.each do |p|
+  puts("Opening file #{p}") if util_params[:verbose]
+
+  begin
+    Unxls.parse(p, parser_params)
+  rescue StandardError => e
+    unless util_params[:suppress_error_messages]
+      puts e.message.red
+      puts e.backtrace.join("\n").yellow
+    end
+    next
+  end
+
+  if (move_dir = util_params[:move]).instance_of?(String) && Pathname.new(move_dir).directory?
+    puts("Moving file #{p} to #{util_params[:move]}") if util_params[:verbose]
+    FileUtils.mv(p, util_params[:move])
+  end
+
+  sleep(0.1)
+end

@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/unxls'
+require 'pry'
+require 'awesome_print'
+
+file = Pathname.new(ARGV[0])
+ole = Ole::Storage.open(file.to_s)
+stream = ole.file.open('Workbook')
+until stream.eof?
+  id, size = stream.read(4).unpack('vv')
+  name = Unxls::Biff8::Record.name_by_id(id) || Unxls::Log.h2b(id)
+
+  case name
+  when :BOF then puts(name.to_s.red)
+  when :EOF then puts(name.to_s.blue)
+  else puts(name)
+  end
+
+  record = stream.read(size)
+  # binding.pry
+end

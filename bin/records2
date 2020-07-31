@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/unxls'
+require 'pry'
+
+file = Pathname.new(ARGV[0])
+stream = File.open(file)
+until stream.eof?
+  id, size = stream.read(4).unpack('vv')
+  name = Unxls::Biff8::Record.name_by_id(id) || Unxls::Log.h2b(id)
+
+  case name
+  when :BOF then puts(name.to_s.red)
+  when :EOF then puts(name.to_s.blue)
+  else puts(name)
+  end
+
+  record = stream.read(size)
+  # binding.pry
+end
