@@ -1,4 +1,7 @@
 # Unxls
+
+[![Gem Version](https://badge.fury.io/rb/unxls.svg)](https://badge.fury.io/rb/unxls)
+
 Unxls is a parser for Microsoft Excel XLS binary file formats with the ultimate goal to cover the entire format specification and all BIFF versions. It is written with these ideas in mind:
 
 - Single responsibility. This gem's only goal is to decode XLS files (as scrupulously as possible). It is quite a complex task already, and combining it with other functionality (like manipulating file structure, generating new XLS files, etc), as other libraries do, is not a good idea, in my opinion.
