@@ -1,6 +1,7 @@
 # Unxls
 
 [![Gem Version](https://badge.fury.io/rb/unxls.svg)](https://badge.fury.io/rb/unxls)
+[![Maintainability](https://api.codeclimate.com/v1/badges/e6cba5968592fa84807d/maintainability)](https://codeclimate.com/github/kinkou/unxls/maintainability)
 
 Unxls is a parser for Microsoft Excel XLS binary file formats with the ultimate goal to cover the entire format specification and all BIFF versions. It is written with these ideas in mind:
 
