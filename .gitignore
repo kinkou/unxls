@@ -1,4 +1,6 @@
 .DS_Store
+.editorconfig
+.gem
 .vscode
 bundle
 doc
